@@ -1,11 +1,10 @@
 <?php
-
 session_start();
 $username = "";
 $email    = "";
 $salt = "";
 $errors = array();
-$db = mysqli_connect('DB_IP', 'DB_USER', 'DB_PASS', 'DB_NAME');
+$db = mysqli_connect('localhost', 'cs3337', 'cs3337Pa$$w0rd', 'CS3337');
 if (isset($_POST['reg_user'])) {
     $username = mysqli_real_escape_string($db, $_POST['username']);
     $email = mysqli_real_escape_string($db, $_POST['email']);

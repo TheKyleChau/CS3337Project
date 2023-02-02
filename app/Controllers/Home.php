@@ -14,7 +14,7 @@ class Home extends BaseController
     }
     public function index()
     {
-      helper(form);
+      /*helper(form);
       $linkTags = array(
         'css' => array(
         'href' => 'public/css/home.css'),
@@ -22,7 +22,7 @@ class Home extends BaseController
         'type' => 'text/css'
         )
       );
-      $this->data['linkTags'] = $linkTags;
+      $this->data['linkTags'] = $linkTags;*/
       return view('home/home', $this->data); //Returns home page from Views folder
     }
 }
