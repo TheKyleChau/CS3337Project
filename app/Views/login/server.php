@@ -1,4 +1,7 @@
 <?php
+
+$userModel = new \App\Models\ServerModel();
+
 session_start();
 $username = "";
 $email    = "";

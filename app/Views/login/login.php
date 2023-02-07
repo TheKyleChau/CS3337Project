@@ -1,6 +1,4 @@
-<?php
-$userModel = model('App\Models\ServerModel');
-?>
+<?php include('server.php')?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +10,7 @@ $userModel = model('App\Models\ServerModel');
   	<h2>Login</h2>
   </div>
 
-  <form method="post" action="login.php">
+  <form method="post" action="login">
   	<?php include('errors.php'); ?>
   	<div class="input-group">
   		<label>Username</label>
