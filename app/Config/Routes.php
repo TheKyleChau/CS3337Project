@@ -32,7 +32,8 @@ $routes->set404Override();
 $routes->get('/', 'Index::index');
 $routes->match(['get', 'post'],'/login', 'Login::index');
 $routes->match(['get', 'post'],'/register', 'Register::index');
-
+$routes->get('/logout','Login::logout');
+$routes->post('/login/login', 'Login::login');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

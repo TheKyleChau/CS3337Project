@@ -1,10 +1,11 @@
 <?php
+$db = mysqli_connect('localhost', 'cs3337', 'cs3337Pa$$w0rd', 'CS3337');
 session_start();
 $username = "";
 $email    = "";
 $salt = "";
 $errors = array();
-$db = mysqli_connect('localhost', 'cs3337', 'cs3337Pa$$w0rd', 'CS3337');
+$db = model('App\Models\ServerModel');
 if (isset($_POST['reg_user'])) {
     $username = mysqli_real_escape_string($db, $_POST['username']);
     $email = mysqli_real_escape_string($db, $_POST['email']);
@@ -22,8 +23,7 @@ if (isset($_POST['reg_user'])) {
     if ($password_1 != $password_2) {
         array_push($errors, "The two passwords do not match");
     }
-    $user_check_query = "SELECT * FROM UserNameAndPassword WHERE username='$username' OR email='$email' LIMIT 1";
-    $result = mysqli_query($db, $user_check_query);
+    $result = $db->query($db, $DBRegQuery);
     $user = mysqli_fetch_assoc($result);
 
     if ($user) { // if user exists
@@ -43,7 +43,7 @@ if (isset($_POST['reg_user'])) {
         $password = md5($password_1);//encrypt the password before saving in the database
         $hashuser = md5($username);
         $query = "INSERT INTO UserNameAndPassword (username, email, password, salt)
-  			  VALUES('$username', '$email', '$password','$salt')";
+          VALUES('$username', '$email', '$password','$salt')";
         mysqli_query($db, $query);
         setcookie("login", $salt . $password, time()+3600);
         $_SESSION['username'] = $username;
