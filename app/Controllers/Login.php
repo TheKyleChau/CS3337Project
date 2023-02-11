@@ -10,29 +10,35 @@ class Login extends BaseController
     }
     public function logout()
     {
-        $user_data = $this->session->all_userdata();
-            foreach ($user_data as $key => $value) {
-                if ($key != 'session_id' && $key != 'ip_address' && $key != 'user_agent' && $key != 'last_activity') {
-                    $this->session->unset_userdata($key);
-                }
-            }
-        $this->session->sess_destroy();
-        redirect('Index');
+      if (!isset($_SESSION))
+      {
+        session_start();
+      }
+      if (isset($_GET['logout'])) {
+        session_destroy();
+        unset($_SESSION['username']);
+      }
+      return redirect()->route('Index');
     }
     public function login() {
+      session_start();
       $db = new \App\Models\ServerModel();
       $server = $db->initalize();
+      $errors = array();
       if (isset($_POST['login_user'])) {
-          $username = $_POST["username"];
-          $password = $_POST["password"];
+          $username = $_POST['username'];
+          $password = $_POST['password'];
           if (empty($username)) {
               array_push($errors, "Username is required");
           }
           if (empty($password)) {
               array_push($errors, "Password is required");
           }
-          $data = array("username" => $username, "password" => $password);
-          $db->login($data, $server);
+          if(empty($errors)) {
+            $data = array('username' => $username, 'password' => $password);
+            $db->login($data, $server);
+          }
+          return redirect()->route('Index');
         }
     }
 }

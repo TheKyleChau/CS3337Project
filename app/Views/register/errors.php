@@ -5,3 +5,8 @@
   	<?php endforeach ?>
   </div>
 <?php  endif ?>
+<?php
+$username = "";
+$password = "";
+$email = "";
+?>

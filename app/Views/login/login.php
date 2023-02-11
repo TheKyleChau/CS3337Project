@@ -1,4 +1,10 @@
-<?php include('server.php')?>
+<?php
+if (!isset($_SESSION))
+  {
+    session_start();
+  }
+$errors = array()
+?>
 <!DOCTYPE html>
 <html>
 <head>

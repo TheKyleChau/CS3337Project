@@ -1,4 +1,10 @@
-<?php include('server.php') ?>
+<?php
+  if (!isset($_SESSION))
+  {
+    session_start();
+  }
+  $errors = array()
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +16,7 @@
   	<h2>Register</h2>
   </div>
 
-  <form method="post" action="register">
+  <form method="post" action="register/register">
   	<?php include('errors.php'); ?>
   	<div class="input-group">
   	  <label>Username</label>
