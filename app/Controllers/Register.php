@@ -17,20 +17,30 @@ class Register extends BaseController
       $server = $db->initalize();
       $errors = array();
       if (isset($_POST['reg_user'])) {
-          $username = $db->escape(trim($_POST['username']));
-          $password_1 = $db->escape(trim($_POST['password_1']));
-          $email = $db->escape(trim($_POST['email']));
+          $username = $_POST['username'];
+          $password = $_POST['password_1'];
+          $password2 = $_POST['password_2'];
+          $email = $_POST['email'];
+          if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+              array_push($errors,"Invalid email format");
+          }
           if (empty($username)) {
               array_push($errors, "Username is required");
           }
-          if (empty($password_1)) {
+          if (empty($password)) {
               array_push($errors, "Password is required");
           }
-          if(empty($errors)) {
-            $data = array('username' => $username, 'password' => $password_1, 'email' => $email);
-            $db->register($data, $server);
+          if ($password != $password2) {
+              array_push($errors, "The two passwords do not match");
           }
-          return redirect()->route('Index');
+          if(empty($errors)) {
+            $data = array('username' => $username, 'password' => $password, 'email' => $email);
+            $db->register($data, $server, $errors);
+            return redirect()->route('Index');
+          }
+          else {
+            return redirect()->route('Register');
+          }
         }
       }
 }

@@ -21,7 +21,10 @@ class Login extends BaseController
       return redirect()->route('Index');
     }
     public function login() {
-      session_start();
+      if (!isset($_SESSION))
+      {
+        session_start();
+      }
       $db = new \App\Models\ServerModel();
       $server = $db->initalize();
       $errors = array();
@@ -34,11 +37,15 @@ class Login extends BaseController
           if (empty($password)) {
               array_push($errors, "Password is required");
           }
+          var_dump($errors);
           if(empty($errors)) {
             $data = array('username' => $username, 'password' => $password);
-            $db->login($data, $server);
+            $db->login($data, $server, $errors);
+            return redirect()->route('Index');
           }
-          return redirect()->route('Index');
+          else {
+            return redirect()->to('login?error=1');
+          }
         }
     }
 }

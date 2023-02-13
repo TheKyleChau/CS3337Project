@@ -18,6 +18,8 @@
 
   <form method="post" action="register/register">
   	<?php include('errors.php'); ?>
+    <label>No Special Characters In Username Or Password</label>
+    <label></label>
   	<div class="input-group">
   	  <label>Username</label>
   	  <input type="text" name="username" value="<?php echo $username; ?>">
