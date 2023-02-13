@@ -1,4 +1,4 @@
-CS3337 Project using CodeIgniter4 Framework
+CS3337 Project using (MVC) CodeIgniter4 Framework
 
 MMS with Login/Delete
 
