@@ -41,6 +41,7 @@ class ServerModel extends Model
         else {
           array_push($errors, "Invalid user/password combo");
           redirect()->route('Login');
+          return $errors;
         }
       }
   }
@@ -57,7 +58,7 @@ class ServerModel extends Model
         if (preg_match($filter, $username) || preg_match($filter, $password))
         {
           array_push($errors, "Special characters not allowed");
-          return redirect()->route('Register');
+          return $errors;
         }
         $query = "SELECT * FROM UserNameAndPassword WHERE username=" . $db->escape($username) . "OR email= " . $db->escape($email) . "LIMIT 1";
         if (empty($username)) {
@@ -69,7 +70,6 @@ class ServerModel extends Model
         if (empty($password)) {
             array_push($errors, "Password is required");
         }
-        var_dump($errors);
         $query = $db->query($query);
         $result = $query->getResultArray();
         $user = count($result);
@@ -86,13 +86,13 @@ class ServerModel extends Model
             if ($resultarray['email'] === $email) {
                 array_push($errors, "email already exists");
             }
+            return $errors;
         }
         if (count($errors) == 0) {
             $salt = bin2hex(random_bytes(10));
             $password .= $salt;
             $password = md5($password);//encrypt the password before saving in the database
             $hashuser = md5($username);
-            var_dump($salt);
             $builder = $db->table('UserNameAndPassword');
             $query = [
               'username' => $username,
@@ -100,8 +100,7 @@ class ServerModel extends Model
               'password' => $password,
               'salt' => $salt,
             ];
-            var_dump($query);
-            var_dump($builder->insert($query));
+            $builder->insert($query);
             setcookie("login", $salt . $password, time()+3600);
             $_SESSION['username'] = $username;
             $_SESSION['success'] = "You are now logged in";

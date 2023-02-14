@@ -4,8 +4,9 @@ if (!isset($_SESSION))
   session_start();
 }
 ?>
-<?php if(isset($_GET['error'])) { ?>
-  <?php  if (count($errors) > 0) : ?>
+<?php if(!empty($_SESSION['errors'])) {
+  $errors = $_SESSION['errors'];?>
+  <?php  if (!empty($errors)) : ?>
     <div class="error">
     	<?php foreach ($errors as $error) : ?>
     	  <p><?php echo $error ?></p>
@@ -13,6 +14,7 @@ if (!isset($_SESSION))
     </div>
   <?php  endif ?>
 <?php } ?>
+<?php unset($_SESSION['errors']); ?>
 <!DOCTYPE html>
 <html>
 <head>
