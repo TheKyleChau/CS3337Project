@@ -17,6 +17,7 @@ class Login extends BaseController
       if (isset($_GET['logout'])) {
         session_destroy();
         unset($_SESSION['username']);
+          unset($_SESSION['errors']);
       }
       return redirect()->route('Index');
     }
@@ -40,11 +41,12 @@ class Login extends BaseController
           var_dump($errors);
           if(empty($errors)) {
             $data = array('username' => $username, 'password' => $password);
-            $db->login($data, $server, $errors);
+            $errors = $db->login($data, $server, $errors);
             return redirect()->route('Index');
           }
           else {
-            return redirect()->to('login?error=1');
+            $_SESSION['errors'] = $errors;
+            return redirect()->route('Login');
           }
         }
     }

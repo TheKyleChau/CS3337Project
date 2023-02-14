@@ -5,6 +5,17 @@ if (!isset($_SESSION))
   }
 $errors = array()
 ?>
+<?php if(!empty($_SESSION['errors'])) {
+  $errors = $_SESSION['errors'];?>
+  <?php  if (!empty($errors)) : ?>
+    <div class="error">
+    	<?php foreach ($errors as $error) : ?>
+    	  <p><?php echo $error ?></p>
+    	<?php endforeach ?>
+    </div>
+  <?php  endif ?>
+<?php } ?>
+<?php unset($_SESSION['errors']); ?>
 <!DOCTYPE html>
 <html>
 <head>

@@ -35,10 +35,12 @@ class Register extends BaseController
           }
           if(empty($errors)) {
             $data = array('username' => $username, 'password' => $password, 'email' => $email);
-            $db->register($data, $server, $errors);
+            $errors = $db->register($data, $server, $errors);
+            $_SESSION['errors'] = $errors;
             return redirect()->route('Index');
           }
           else {
+            $_SESSION['errors'] = $errors;
             return redirect()->route('Register');
           }
         }
