@@ -19,12 +19,15 @@ $errors = array()
 <!DOCTYPE html>
 <html>
 <head>
+	<style><?php include 'styles.css'; ?></style>
+	<div class="flex-container"></div>
+	<div class="content-container"></div>
   <title>Registration System</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
   <div class="header">
-  	<h2>Login</h2>
+  	<h1>Login</h1>
+	<br>
   </div>
 
   <form method="post" action="/login/login">
