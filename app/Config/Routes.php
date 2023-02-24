@@ -35,6 +35,8 @@ $routes->match(['get', 'post'],'/register', 'Register::index');
 $routes->get('/logout','Login::logout');
 $routes->post('/login/login', 'Login::login');
 $routes->post('/register/register', 'Register::register');
+
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
@@ -48,6 +50,8 @@ $routes->post('/register/register', 'Register::register');
  * You will have access to the $routes object within that file without
  * needing to reload it.
  */
+
+ 
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }
