@@ -6,6 +6,7 @@ class Index extends BaseController
 {
     public function index()
     {
+      
       return view('index/index'); //Returns Login page from Views folder
     }
 }
