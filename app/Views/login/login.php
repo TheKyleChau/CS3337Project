@@ -29,6 +29,13 @@ $errors = array()
   	<h1>Login</h1>
 	<br>
   </div>
+  <div class="theme-toggle">
+    <h2></h2>
+    <label class="switch">
+      <input type="checkbox" onclick="switchTheme()">
+      <span class="slider"></span>
+    </label>
+  </div>
 
   <form method="post" action="/login/login">
   	<?php include('errors.php'); ?>
@@ -47,5 +54,6 @@ $errors = array()
   		Not yet a member? <a href="register">Sign up</a>
   	</p>
   </form>
+}
 </body>
 </html>
