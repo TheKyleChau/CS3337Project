@@ -1,3 +1,4 @@
+/* Dark Mode function for JavaScript */
 const body = document.body;
 const loginBox = document.querySelector(".login-box");
 const h1 = document.getElementsByTagName("h1")[0];

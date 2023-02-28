@@ -29,7 +29,7 @@ body {
   user-select: none;
 
   
-  /*dark-mode*/
+  /* Beginning of dark-mode section */
 }
 
  body.dark-mode{
@@ -168,7 +168,7 @@ input:focus {
 
 
 form button.dark-mode {
-  background-color: #794bc4;
+  background-color: #43a0da;
 }
 
 form button:hover {
@@ -177,7 +177,7 @@ form button:hover {
 }
 
 form button.dark-mode:hover {
-  background-color: #875ad1;
+  background-color: #43a0da;
 }
 form button:focus {
   outline: none;
@@ -240,14 +240,14 @@ h2.dark-mode::before {
 }
 
 .switch input:checked + .slider {
-  background-color: #794bc4;
+  background-color: #43a0da;
 }
 
 .switch input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-/*end of dark mode*/
+/*end of dark mode section */
 
 .input-group {
   margin: 10px 0px 10px 0px;
