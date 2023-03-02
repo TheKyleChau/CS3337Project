@@ -6,6 +6,10 @@ class Login extends BaseController
 {
     public function index()
     {
+      if(!empty($_SESSION['errors'])) {
+          $errors = $_SESSION['errors'];
+          unset($_SESSION['errors']);
+      }
       return view('login/login'); //Returns Login page from Views folder
     }
     public function logout()
@@ -38,7 +42,6 @@ class Login extends BaseController
           if (empty($password)) {
               array_push($errors, "Password is required");
           }
-          var_dump($errors);
           if(empty($errors)) {
             $data = array('username' => $username, 'password' => $password);
             $errors = $db->login($data, $server, $errors);

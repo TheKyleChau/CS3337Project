@@ -35,6 +35,8 @@ $routes->match(['get', 'post'],'/register', 'Register::index');
 $routes->get('/logout','Login::logout');
 $routes->post('/login/login', 'Login::login');
 $routes->post('/register/register', 'Register::register');
+$routes->get('upload', 'Upload::index');
+$routes->post('upload/upload', 'Upload::upload');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

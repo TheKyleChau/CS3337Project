@@ -84,7 +84,7 @@ class ServerModel extends Model
             }
 
             if ($resultarray['email'] === $email) {
-                array_push($errors, "email already exists");
+                array_push($errors, "Email already exists");
             }
             return $errors;
         }
