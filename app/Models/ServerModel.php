@@ -36,6 +36,7 @@ class ServerModel extends Model
         if ($numRows == 1) {
             setcookie("login", $hashuser . $saltresult . $password, time()+3600);
             $_SESSION['username'] = $username;
+            $_SESSION['isLoggedIn'] = true;
             $_SESSION['success'] = "You are now logged in";
         }
         else {
@@ -104,6 +105,7 @@ class ServerModel extends Model
             setcookie("login", $salt . $password, time()+3600);
             $_SESSION['username'] = $username;
             $_SESSION['success'] = "You are now logged in";
+            $_SESSION['isLoggedIn'] = true;
         }
     }
   }

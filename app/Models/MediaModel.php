@@ -25,10 +25,6 @@ class MediaModel extends Model
       if ($numRows == 1) {
 
       }
-      else {
-        array_push($errors, "User does not exist or is invalid.");
-        redirect()->route('Login');
-        return $errors;
-      }
+      var_dump($query);
   }
 }
