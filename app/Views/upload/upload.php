@@ -1,9 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+<link type="text/css" rel="stylesheet" href="upload.css"/>
     <title>Upload Form</title>
 </head>
 <body>
+<div class="container">
+  <form class="form">
+    <div class="file-upload-wrapper" data-text="Select your file!">
+      <input name="file-upload-field" type="file" class="file-upload-field" value="">
+      <button id="dark-mode-toggle">Toggle Dark Mode</button>
+    </div>
+  </form>
+</div>
+    <div class="body"></div>
+    <body class="dark-mode">
+      
+    </body>
 
 <?php foreach ($errors as $error): ?>
     <li><?= esc($error) ?></li>

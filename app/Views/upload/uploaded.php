@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet" href="uploaded.css">
     <title>Upload Form</title>
 </head>
 <body>
