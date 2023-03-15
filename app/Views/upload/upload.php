@@ -9,14 +9,13 @@
 <div class="container">
   <form class="form">
     <div class="file-upload-wrapper" data-text="Select your file!">
-      <input name="file-upload-field" type="file" class="file-upload-field" value="">
       <button id="dark-mode-toggle">Toggle Dark Mode</button>
     </div>
   </form>
 </div>
     <div class="body"></div>
     <body class="dark-mode">
-      
+
     </body>
 
 <?php foreach ($errors as $error): ?>

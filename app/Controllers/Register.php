@@ -14,7 +14,7 @@ class Register extends BaseController
         session_start();
       }
       $db = new \App\Models\ServerModel();
-      $server = $db->initalize();
+      $db->initalize();
       $errors = array();
       if (isset($_POST['reg_user'])) {
           $username = $_POST['username'];
@@ -35,7 +35,7 @@ class Register extends BaseController
           }
           if(empty($errors)) {
             $data = array('username' => $username, 'password' => $password, 'email' => $email);
-            $errors = $db->register($data, $server, $errors);
+            $errors = $db->register($data, $errors);
             if(!empty($errors)) {
               $_SESSION['errors'] = $errors;
               var_dump($_SESSION['errors']);

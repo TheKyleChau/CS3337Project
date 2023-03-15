@@ -3,7 +3,6 @@ if (!isset($_SESSION))
   {
     session_start();
   }
-  var_dump($_SESSION);
 $errors = array()
 ?>
 <?php if(!empty($_SESSION['errors'])) {

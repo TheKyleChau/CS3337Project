@@ -2,10 +2,12 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\Files\File;
+
 class Upload extends BaseController
 {
   protected $helpers = ['form'];
-
+  protected $mediaPath = 'public/uploads/';
   public function index()
   {
       return view('upload/upload', ['errors' => []]);
@@ -17,7 +19,7 @@ class Upload extends BaseController
     }
     else {
       $db = new \App\Models\MediaModel();
-      $server = $db->initalize();
+      $db->initalize();
       $validationRule = [
               'userfile' => [
                   'label' => 'Image File',
@@ -25,8 +27,7 @@ class Upload extends BaseController
                       'uploaded[userfile]',
                       'is_image[userfile]',
                       'mime_in[userfile,image/jpg,image/jpeg,image/gif,image/png,image/webp]',
-                      'max_size[userfile,100]',
-                      'max_dims[userfile,1024,768]',
+                      'max_size[userfile,1000000]',
                   ],
               ],
           ];
@@ -38,9 +39,12 @@ class Upload extends BaseController
           $img = $this->request->getFile('userfile');
 
           if (! $img->hasMoved()) {
-              $filepath = WRITEPATH . 'uploads/' . $_SESSION['username'] .  '/' . $img->store();
+              $filepath = WRITEPATH . 'uploads/' . $img->store();
               $data = ['uploaded_fileinfo' => new File($filepath)];
-
+              $datas = new File($filepath);
+              $errors = array();
+              $db->upload($datas, $errors);
+              var_dump($datas);
               return view('upload/uploaded', $data);
           }
 

@@ -31,7 +31,7 @@ class Login extends BaseController
         session_start();
       }
       $db = new \App\Models\ServerModel();
-      $server = $db->initalize();
+      $db->initalize();
       $errors = array();
       if (isset($_POST['login_user'])) {
           $username = $_POST['username'];
@@ -44,7 +44,7 @@ class Login extends BaseController
           }
           if(empty($errors)) {
             $data = array('username' => $username, 'password' => $password);
-            $errors = $db->login($data, $server, $errors);
+            $errors = $db->login($data, $errors);
             return redirect()->route('Index');
           }
           else {
