@@ -10,7 +10,9 @@ class Upload extends BaseController
   protected $mediaPath = 'public/uploads/';
   public function index()
   {
-      return view('upload/upload', ['errors' => []]);
+      $data['js'] = 'dark-mode.js';
+      $data['errors'] = [];
+      return view('upload/upload', $data);
   }
   public function upload()
   {
@@ -44,7 +46,6 @@ class Upload extends BaseController
               $datas = new File($filepath);
               $errors = array();
               $db->upload($datas, $errors);
-              var_dump($datas);
               return view('upload/uploaded', $data);
           }
 

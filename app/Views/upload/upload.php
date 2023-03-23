@@ -1,8 +1,14 @@
 <!DOCTYPE html>
+<?php helper('html'); ?>
+<? if ($js != '') : ?>
+
+<script type="text/javascript" src="public/<?=$js;?>">
+
+<? endif;?>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-<link type="text/css" rel="stylesheet" href="upload.css"/>
+<?php echo link_tag('upload.css')?>
     <title>Upload Form</title>
 </head>
 <body>
