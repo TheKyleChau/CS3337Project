@@ -43,7 +43,6 @@ if (!isset($_SESSION))
   	<?php endif ?>
     <!-- logged in user information -->
     <?php  if (isset($_SESSION['username'])) : ?>
-      <?php var_dump($_SESSION); ?>
     	<p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>
       <p> <a href="/upload" style="color: red;">Upload</a> </p>
     	<p> <a href="/logout?logout=1" style="color: red;">logout</a> </p>
