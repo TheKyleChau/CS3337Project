@@ -21,7 +21,8 @@
 </div>
     <div class="body"></div>
     <body class="dark-mode">
-
+    <p> <a href="/" style="color: red;">Menu</a> </p>
+    <p> <a href="/logout?logout=1" style="color: red;">logout</a> </p>
     </body>
 
 <?php foreach ($errors as $error): ?>
