@@ -16,11 +16,11 @@ class ServerModel extends Model
   function initalize() {
     return $db = \Config\Database::connect();
   }
-  function login($data, $db, $errors) {
+  function login($data, $errors) {
       $username = $data['username'];
       $password = $data['password'];
-      $salt = "SELECT salt FROM UserNameAndPassword WHERE username=". $db->escape($username);
-      $resulty = $db->query($salt);
+      $salt = "SELECT salt FROM UserNameAndPassword WHERE username=". $this->escape($username);
+      $resulty = $this->query($salt);
       foreach ($resulty->getResultArray() as $row) {
           $saltresult = $row['salt'];
       }
@@ -29,13 +29,14 @@ class ServerModel extends Model
       }
       else {
         $password = md5($password . $saltresult);
-        $querycheck = "SELECT * FROM UserNameAndPassword WHERE username=". $db->escape($username) . "AND password=" . $db->escape($password);
-        $query = $db->query($querycheck);
+        $querycheck = "SELECT * FROM UserNameAndPassword WHERE username=". $this->escape($username) . "AND password=" . $this->escape($password);
+        $query = $this->query($querycheck);
         $numRows = count($query->getResult());
         $hashuser = md5($username);
         if ($numRows == 1) {
             setcookie("login", $hashuser . $saltresult . $password, time()+3600);
             $_SESSION['username'] = $username;
+            $_SESSION['isLoggedIn'] = true;
             $_SESSION['success'] = "You are now logged in";
         }
         else {
@@ -45,11 +46,10 @@ class ServerModel extends Model
         }
       }
   }
-  function register($data, $db, $errors) {
+  function register($data, $errors) {
     $username = "";
     $email    = "";
     $salt = "";
-    $db = model('App\Models\ServerModel');
     if (isset($_POST['reg_user'])) {
         $username = $data['username'];
         $email = $data['email'];
@@ -60,7 +60,7 @@ class ServerModel extends Model
           array_push($errors, "Special characters not allowed");
           return $errors;
         }
-        $query = "SELECT * FROM UserNameAndPassword WHERE username=" . $db->escape($username) . "OR email= " . $db->escape($email) . "LIMIT 1";
+        $query = "SELECT * FROM UserNameAndPassword WHERE username=" . $this->escape($username) . "OR email= " . $this->escape($email) . "LIMIT 1";
         if (empty($username)) {
             array_push($errors, "Username is required");
         }
@@ -70,11 +70,11 @@ class ServerModel extends Model
         if (empty($password)) {
             array_push($errors, "Password is required");
         }
-        $query = $db->query($query);
+        $query = $this->query($query);
         $result = $query->getResultArray();
         $user = count($result);
         $resultarray = array();
-        if ($user != 0) { // if user exists
+        if ($user != 0) { // If user exists
             foreach ($result as $r) {
                 $resultarray['username'] = $r['username'];
                 $resultarray['email'] = $r['email'];
@@ -84,7 +84,7 @@ class ServerModel extends Model
             }
 
             if ($resultarray['email'] === $email) {
-                array_push($errors, "email already exists");
+                array_push($errors, "Email already exists");
             }
             return $errors;
         }
@@ -93,7 +93,7 @@ class ServerModel extends Model
             $password .= $salt;
             $password = md5($password);//encrypt the password before saving in the database
             $hashuser = md5($username);
-            $builder = $db->table('UserNameAndPassword');
+            $builder = $this->table('UserNameAndPassword');
             $query = [
               'username' => $username,
               'email' => $email,
@@ -101,9 +101,10 @@ class ServerModel extends Model
               'salt' => $salt,
             ];
             $builder->insert($query);
-            setcookie("login", $salt . $password, time()+3600);
+            setcookie("login", $hashuser . $salt . $password, time()+3600);
             $_SESSION['username'] = $username;
             $_SESSION['success'] = "You are now logged in";
+            $_SESSION['isLoggedIn'] = true;
         }
     }
   }
