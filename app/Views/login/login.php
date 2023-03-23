@@ -20,7 +20,7 @@ $errors = array()
 <html>
 <head>
   <title>Registration System</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <style><?php include 'styles.css'; ?></style>
 </head>
 <body>
   <div class="header">

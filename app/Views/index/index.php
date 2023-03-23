@@ -19,13 +19,17 @@ if (!isset($_SESSION))
 <html>
 <head>
 	<title>Home</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<style><?php include 'indexStyle.css'; ?></style>
 </head>
 <body>
 
-<div class="header">
-	<h2>Home Page</h2>
-</div>
+<head>
+  <div class="header">
+	  <h2>Authentication Page</h2>
+  </div>
+</head>
+
+<main>
 <div class="content">
   	<?php if (isset($_SESSION['success'])) : ?>
       <div class="error success" >
@@ -45,9 +49,15 @@ if (!isset($_SESSION))
     	<p> <a href="/logout?logout=1" style="color: red;">logout</a> </p>
     <?php endif ?>
     <?php if (!isset($_SESSION['username'])) : ?>
-      	<p> <a href="/login" style="color: red;">Login</a> </p>
-        <p> <a href="/register" style="color: red;">Register</a> </p>
+      	<p> <a href="/login" style="color: #FFFEE9;">Login</a> </p>
+        <p> <a href="/register" style="color: #FFFEE9;">Register</a> </p>
     <?php endif ?>
 </div>
+</main>
+
+<footer>
+
+</footer>
+
 </body>
 </html>
