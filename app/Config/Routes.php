@@ -37,7 +37,6 @@ $routes->post('/login/login', 'Login::login');
 $routes->post('/register/register', 'Register::register');
 $routes->get('upload', 'Upload::index', ['filter' => 'authGuard']);
 $routes->post('upload/upload', 'Upload::upload', ['filter' => 'authGuard']);
-=======
 
 /*
  * --------------------------------------------------------------------
@@ -53,7 +52,7 @@ $routes->post('upload/upload', 'Upload::upload', ['filter' => 'authGuard']);
  * needing to reload it.
  */
 
- 
+
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }
