@@ -1,12 +1,9 @@
 <?php
-  if (!isset($_SESSION))
-  {
-    session_start();
-  }
+  $session = session();
   $errors = array()
  ?>
- <?php if(!empty($_SESSION['errors'])) {
-   $errors = $_SESSION['errors'];?>
+ <?php if(!empty($session->get('errors'))) {
+   $errors = $session->get('errors');?>
    <?php  if (!empty($errors)) : ?>
      <div class="error">
      	<?php foreach ($errors as $error) : ?>
@@ -15,7 +12,7 @@
      </div>
    <?php  endif ?>
  <?php } ?>
- <?php unset($_SESSION['errors']); ?>
+ <?php $session->remove('errors'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,11 +38,11 @@
   	</div>
   	<div class="input-group">
   	  <label>Password</label>
-  	  <input type="password" name="password_1">
+  	  <input type="password" name="password_1" minlength="6">
   	</div>
   	<div class="input-group">
   	  <label>Confirm password</label>
-  	  <input type="password" name="password_2">
+  	  <input type="password" name="password_2" minlength="6">
   	</div>
   	<div class="input-group">
   	  <button type="submit" class="btn" name="reg_user">Register</button>

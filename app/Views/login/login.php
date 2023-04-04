@@ -1,12 +1,9 @@
 <?php
-if (!isset($_SESSION))
-  {
-    session_start();
-  }
+$session = session();
 $errors = array()
 ?>
-<?php if(!empty($_SESSION['errors'])) {
-  $errors = $_SESSION['errors'];?>
+<?php if(!empty($session->get('errors'))) {
+  $errors = $session->get('errors');?>
   <?php  if (!empty($errors)) : ?>
     <div class="error">
     	<?php foreach ($errors as $error) : ?>
@@ -15,7 +12,7 @@ $errors = array()
     </div>
   <?php  endif ?>
 <?php } ?>
-<?php unset($_SESSION['errors']); ?>
+<?php $session->remove('errors'); ?>
 <!DOCTYPE html>
 <html>
 <head>

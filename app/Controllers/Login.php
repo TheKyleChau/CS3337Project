@@ -6,30 +6,20 @@ class Login extends BaseController
 {
     public function index()
     {
-      if(!empty($_SESSION['errors'])) {
-          $errors = $_SESSION['errors'];
-          unset($_SESSION['errors']);
+      $session = session();
+      if(!empty($session->get('errors'))) {
+          $errors = $session->get('errors');
       }
       return view('login/login'); //Returns Login page from Views folder
     }
     public function logout()
     {
-      if (!isset($_SESSION))
-      {
-        session_start();
-      }
-      if (isset($_GET['logout'])) {
-        session_destroy();
-        unset($_SESSION['username']);
-          unset($_SESSION['errors']);
-      }
+      $session = session();
+      $session->destroy();
       return redirect()->route('Index');
     }
     public function login() {
-      if (!isset($_SESSION))
-      {
-        session_start();
-      }
+      $session = session();
       $db = new \App\Models\ServerModel();
       $db->initalize();
       $errors = array();
@@ -45,11 +35,17 @@ class Login extends BaseController
           if(empty($errors)) {
             $data = array('username' => $username, 'password' => $password);
             $errors = $db->login($data, $errors);
-            return redirect()->route('Index');
+            $session->set('errors', $errors);
+            if($errors) {
+              return redirect('Login', $errors);
+            }
+            else {
+              return redirect('Index');
+            };
           }
           else {
-            $_SESSION['errors'] = $errors;
-            return redirect()->route('Login');
+            $session->set('errors', $errors);
+            return redirect('Login', $session);
           }
         }
     }

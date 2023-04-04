@@ -22,6 +22,38 @@ nav {
   font-size: 3em;
 }
 
+.flex-container{
+  width: 100vw;
+
+  margin-top: 60px;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+}
+
+.content-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 500px;
+  height: 350px;
+
+  margin-top: 5px;
+  padding-top: 20px;
+
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  background: #1f1f1f;
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.199);
+}
 .content {
   border: solid black 1px;
   text-align: center;
@@ -50,14 +82,10 @@ main {
   .content {
     display: none;
   }
-} 
+}
 
 @media only screen and (max-width: 726px) {
   h2 {
     display: none;
   }
 }
-
-  
-
-

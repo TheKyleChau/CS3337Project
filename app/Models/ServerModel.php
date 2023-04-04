@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use CodeIgniter\Session\Session;
 use CodeIgniter\Model;
 
 class ServerModel extends Model
 {
+  protected $session;
   protected $DBGroup = 'default';
   protected $table      = 'UserNameAndPassword';
   protected $primaryKey = 'id';
@@ -13,6 +15,13 @@ class ServerModel extends Model
   protected $returnType     = 'array';
   protected $useSoftDeletes = true;
   protected $allowedFields = ['name', 'email','username','password','salt'];
+
+  public function __construct()
+  {
+      parent::__construct();
+      $this->session = session();
+  }
+
   function initalize() {
     return $db = \Config\Database::connect();
   }
@@ -34,10 +43,10 @@ class ServerModel extends Model
         $numRows = count($query->getResult());
         $hashuser = md5($username);
         if ($numRows == 1) {
-            setcookie("login", $hashuser . $saltresult . $password, time()+3600);
-            $_SESSION['username'] = $username;
-            $_SESSION['isLoggedIn'] = true;
-            $_SESSION['success'] = "You are now logged in";
+            //setcookie("login", $hashuser . $saltresult . $password, time()+3600);
+            $this->session->set('username', $username);
+            $this->session->set('success', 'You are now logged in');
+            $this->session->set('isLoggedIn', true);
         }
         else {
           array_push($errors, "Invalid user/password combo");
@@ -101,10 +110,10 @@ class ServerModel extends Model
               'salt' => $salt,
             ];
             $builder->insert($query);
-            setcookie("login", $hashuser . $salt . $password, time()+3600);
-            $_SESSION['username'] = $username;
-            $_SESSION['success'] = "You are now logged in";
-            $_SESSION['isLoggedIn'] = true;
+            //setcookie("login", $hashuser . $salt . $password, time()+3600);
+            $this->session->set('username', $username);
+            $this->session->set('success', 'You are now logged in');
+            $this->session->set('isLoggedIn', true);
         }
     }
   }

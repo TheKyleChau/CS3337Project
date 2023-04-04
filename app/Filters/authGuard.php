@@ -10,10 +10,8 @@ class authGuard implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        if(!isset($_SESSION)) {
-            session_start();
-        }
-        if(!isset($_SESSION['isLoggedIn']))
+        $session = session();
+        if(!$session->get('isLoggedIn'))
         {
             return redirect()->route('Login');
         }
