@@ -12,17 +12,20 @@
     <title>Upload Form</title>
 </head>
 <body>
+<center>
 <div class="container">
   <form class="form">
     <div class="file-upload-wrapper" data-text="Select your file!">
       <button id="dark-mode-toggle">Toggle Dark Mode</button>
+      <center>
+      <p> <a style="color: green;" href="/">Menu</a> </p>
+      <p> <a style="color: red;" href="/logout?logout=1">logout</a> </p>
+      </center>
     </div>
   </form>
 </div>
     <div class="body"></div>
     <body class="dark-mode">
-    <p> <a href="/" style="color: red;">Menu</a> </p>
-    <p> <a href="/logout?logout=1" style="color: red;">logout</a> </p>
     </body>
 
 <?php foreach ($errors as $error): ?>
@@ -34,6 +37,6 @@
     <br><br>
     <input type="submit" value="upload">
 </form>
-
+</center>
 </body>
 </html>

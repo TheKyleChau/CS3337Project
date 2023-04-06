@@ -80,12 +80,12 @@ main {
 
 @media only screen and (max-width: 726px) {
   .content {
-    display: none;
+    display: flex;
   }
 }
 
 @media only screen and (max-width: 726px) {
   h2 {
-    display: none;
+    display: flex;
   }
 }
