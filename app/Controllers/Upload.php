@@ -54,4 +54,23 @@ class Upload extends BaseController
           return view('upload/upload', $data);
       }
     }
+    /*public function upload()
+    {
+        $model = new \App\Models\MediaModel();
+
+        if ($this->request->getMethod() === 'post' && $this->validate([
+            'file' => [
+                'uploaded[file]',
+                'mime_in[file,image/jpg,image/jpeg,image/gif,image/png]',
+                'max_size[file,1024]',
+            ],
+        ])) {
+            $file = $this->request->getFile('file');
+            $model->upload($file);
+            return redirect()->to('/media');
+        } else {
+            $data['validation'] = $this->validator;
+            echo view('media', $data);
+        }
+    }*/
   }

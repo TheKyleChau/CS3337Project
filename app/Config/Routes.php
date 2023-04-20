@@ -37,6 +37,7 @@ $routes->post('login/login', 'Login::login');
 $routes->post('register/register', 'Register::register');
 $routes->get('upload', 'Upload::index', ['filter' => 'authGuard']);
 $routes->post('upload/upload', 'Upload::upload', ['filter' => 'authGuard']);
+$routes->get('media', 'Media::index', ['filter' => 'authGuard']);
 
 /*
  * --------------------------------------------------------------------

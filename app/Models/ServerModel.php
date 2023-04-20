@@ -14,7 +14,7 @@ class ServerModel extends Model
   protected $useAutoIncrement = true;
   protected $returnType     = 'array';
   protected $useSoftDeletes = true;
-  protected $allowedFields = ['name', 'email','username','password','salt'];
+  protected $allowedFields = ['name', 'email','username','password','salt','id'];
 
   public function __construct()
   {
@@ -38,15 +38,20 @@ class ServerModel extends Model
       }
       else {
         $password = md5($password . $saltresult);
-        $querycheck = "SELECT * FROM UserNameAndPassword WHERE username=". $this->escape($username) . "AND password=" . $this->escape($password);
+        $querycheck = "SELECT id FROM UserNameAndPassword WHERE username=". $this->escape($username) . "AND password=" . $this->escape($password);
         $query = $this->query($querycheck);
-        $numRows = count($query->getResult());
+        $numRows = count($query->getResultArray());
         $hashuser = md5($username);
         if ($numRows == 1) {
+            $idcheck = $query->getResultArray();
+            foreach ($idcheck as $i) {
+              $id = $i["id"];
+            }
             //setcookie("login", $hashuser . $saltresult . $password, time()+3600);
             $this->session->set('username', $username);
             $this->session->set('success', 'You are now logged in');
             $this->session->set('isLoggedIn', true);
+            $this->session->set('userid', $id);
         }
         else {
           array_push($errors, "Invalid user/password combo");
@@ -107,11 +112,12 @@ class ServerModel extends Model
               'username' => $username,
               'email' => $email,
               'password' => $password,
-              'salt' => $salt,
+              'salt' => $salt
             ];
             $builder->insert($query);
             //setcookie("login", $hashuser . $salt . $password, time()+3600);
             $this->session->set('username', $username);
+            $this->session->set('userid', $id);
             $this->session->set('success', 'You are now logged in');
             $this->session->set('isLoggedIn', true);
         }
