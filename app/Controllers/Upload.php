@@ -10,7 +10,6 @@ class Upload extends BaseController
   protected $mediaPath = 'public/uploads/';
   public function index()
   {
-      $data['js'] = 'dark-mode.js';
       $data['errors'] = [];
       return view('upload/upload', $data);
   }
@@ -57,7 +56,6 @@ class Upload extends BaseController
     /*public function upload()
     {
         $model = new \App\Models\MediaModel();
-
         if ($this->request->getMethod() === 'post' && $this->validate([
             'file' => [
                 'uploaded[file]',
