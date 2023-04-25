@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <?php helper('html'); ?>
-<? if ($js != '') : ?>
-
-<script type="text/javascript" src="public/<?=$js;?>">
 
 <? endif;?>
 <html lang="en">
@@ -16,7 +13,6 @@
 <div class="container">
   <form class="form">
     <div class="file-upload-wrapper" data-text="Select your file!">
-      <button id="dark-mode-toggle">Toggle Dark Mode</button>
       <center>
       <p> <a style="color: green;" href="/">Menu</a> </p>
       <p> <a style="color: red;" href="/logout?logout=1">logout</a> </p>
@@ -25,7 +21,6 @@
   </form>
 </div>
     <div class="body"></div>
-    <body class="dark-mode">
     </body>
 
 <?php foreach ($errors as $error): ?>
