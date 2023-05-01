@@ -6,55 +6,124 @@ use CodeIgniter\Files\File;
 
 class Upload extends BaseController
 {
-  protected $helpers = ['form'];
-  protected $mediaPath = 'public/uploads/';
-  public function index()
-  {
-      $data['js'] = 'dark-mode.js';
-      $data['errors'] = [];
-      return view('upload/upload', $data);
-  }
-  public function upload()
-  {
-    if(!isset($_SESSION['username'])) {
-      return redirect()->route('Login');
+    protected $helpers = ['form'];
+    protected $mediaModel;
+
+    public function delete($id)
+    {
+        if (!session()->has('username')) {
+            return redirect()->to(route('Login'));
+        }
+
+        $username = session('username');
+
+        // Load the ServerModel
+        $serverModel = new \App\Models\ServerModel();
+
+        // Retrieve the user record from the database by username
+        $user = $serverModel->where('username', $username)->first();
+
+        // Check if the user exists and retrieve the user ID
+        if ($user) {
+            $userId = $user['id'];
+
+            // Load the MediaModel
+            $mediaModel = new \App\Models\MediaModel();
+
+            // Retrieve the file record from the database by its ID and user ID
+            $file = $mediaModel->where('id', $id)->where('userid', $userId)->first();
+
+            // Check if the file exists
+            if ($file) {
+                // Delete the file record from the database
+                $mediaModel->delete($id);
+
+                // Delete the physical file from the server
+                $filePath = WRITEPATH . 'uploads/' . $file['url'];
+                if (is_file($filePath)) {
+                    unlink($filePath);
+                }
+            }
+        }
+
+        // Redirect to the updated media page
+        return redirect()->to('/media');
     }
-    else {
-      $db = new \App\Models\MediaModel();
-      $db->initalize();
-      $validationRule = [
-              'userfile' => [
-                  'label' => 'Image File',
-                  'rules' => [
-                      'uploaded[userfile]',
-                      'is_image[userfile]',
-                      'mime_in[userfile,image/jpg,image/jpeg,image/gif,image/png,image/webp]',
-                      'max_size[userfile,1000000]',
-                  ],
-              ],
-          ];
-          if (! $this->validate($validationRule)) {
-              $data = ['errors' => $this->validator->getErrors()];
-              return view('upload/upload', $data);
+
+
+
+      public function updateCaption($id)
+      {
+          $media = $this->mediaModel->find($id);
+          if (!$media) {
+              return redirect()->back()->with('error', 'Media not found.');
           }
 
-          $img = $this->request->getFile('userfile');
-
-          if (! $img->hasMoved()) {
-              $filepath = WRITEPATH . 'uploads/' . $img->store();
-              $data = ['uploaded_fileinfo' => new File($filepath)];
-              $datas = new File($filepath);
-              $errors = array();
-              $db->upload($datas, $errors);
-              return view('upload/uploaded', $data);
-          }
-
-          $data = ['errors' => 'The file has already been moved.'];
-
-          return view('upload/upload', $data);
+          $caption = $this->request->getPost('caption');
+          $this->mediaModel->updateCaption($id, $caption);
+          return redirect()->back()->with('success', 'Caption updated successfully.');
       }
+
+    public function __construct()
+    {
+        $this->mediaModel = new \App\Models\MediaModel();
     }
-    /*public function upload()
+
+    public function index()
+    {
+        $data['js'] = 'dark-mode.js';
+        $data['errors'] = [];
+        return view('upload/upload', $data);
+    }
+
+    public function upload()
+    {
+        if (!isset($_SESSION['username'])) {
+            return redirect()->route('Login');
+        } else {
+            $db = new \App\Models\MediaModel();
+
+            $validationRules = [
+                'userfile' => [
+                    'label' => 'Image File',
+                    'rules' => [
+                        'uploaded[userfile]',
+                        'is_image[userfile]',
+                        'mime_in[userfile,image/jpg,image/jpeg,image/gif,image/png,image/webp]',
+                        'max_size[userfile,1000000]',
+                    ],
+                ],
+            ];
+
+            if (! $this->validate($validationRules)) {
+                $data = ['errors' => $this->validator->getErrors()];
+                return view('upload/upload', $data);
+            }
+
+            $img = $this->request->getFile('userfile');
+
+            if ($img->isValid() && !$img->hasMoved()) {
+                $newName = $img->getRandomName();
+                $extension = $img->getExtension();
+                $img->move(ROOTPATH . 'public/uploads', $newName);
+                $filepath = 'uploads/' . $newName;
+                $file = new \CodeIgniter\Files\File($filepath);
+                $data = ['uploaded_fileinfo' => new \CodeIgniter\Files\File($filepath)];
+                if ($file->isFile()) {
+                    $db->upload($img, $filepath, $newName, $extension, $errors);
+                    return view('upload/uploaded', $data);
+                } else {
+                    // Handle the case when the file doesn't exist
+                    $data = ['errors' => 'Failed to move the file. Please try again.'];
+                    return view('upload/upload', $data);
+                }
+            }
+
+            $data = ['errors' => 'The file is invalid or has already been moved.'];
+            return view('upload/upload', $data);
+        }
+    }
+      /*public function upload()
     {
         $model = new \App\Models\MediaModel();
 
@@ -73,4 +142,4 @@ class Upload extends BaseController
             echo view('media', $data);
         }
     }*/
-  }
+}
