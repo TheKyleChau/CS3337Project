@@ -115,7 +115,8 @@ class ServerModel extends Model
               'salt' => $salt
             ];
             $builder->insert($query);
-            //setcookie("login", $hashuser . $salt . $password, time()+3600);
+            $id = $this->where('username', $username)->first();
+            $id = $id['id'];
             $this->session->set('username', $username);
             $this->session->set('userid', $id);
             $this->session->set('success', 'You are now logged in');
