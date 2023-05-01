@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 <?php helper('html'); ?>
-<? if ($js != '') : ?>
-
-<script type="text/javascript" src="public/<?=$js;?>">
-
-<? endif;?>
 <html lang="en">
 <head>
   <meta charset="UTF-8">

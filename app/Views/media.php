@@ -78,7 +78,7 @@
                 <div class="media-item-details">
                     <h3><?= $item['filename'] ?></h3>
                     <p>Type: <?= $item['mediatype'] ?></p>
-                    <p>Size: <?= $item['id'] ?></p>
+                    <p>ID: <?= $item['id'] ?></p>
                     <p>Caption: <?= $item['caption'] ?></p>
                 </div>
                 <div class="media-item-actions">
