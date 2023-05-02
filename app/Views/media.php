@@ -27,7 +27,9 @@
             margin-right: 10px;
         }
 
-        .media-item-image img {
+        .media-item-image img,
+        .media-item-image video,
+        .media-item-image audio {
             max-width: 500px;
             max-height: 500px;
         }
@@ -73,25 +75,35 @@
         <?php foreach ($media as $item): ?>
             <div class="media-item">
                 <div class="media-item-image">
-                    <img src="<?= base_url('/' . $item['url']) ?>" alt="Image">
+                    <?php
+                        $extension = pathinfo($item['url'], PATHINFO_EXTENSION);
+                        $mime_type = mime_content_type($item['url']);
+                        if (strpos($mime_type, 'audio') !== false) {
+                            echo "<audio controls><source src='" . base_url('/' . $item['url']) . "' type='" . $mime_type . "'></audio>";
+                        } elseif (strpos($mime_type, 'video') !== false) {
+                            echo "<video controls><source src='" . base_url('/' . $item['url']) . "' type='" . $mime_type . "'></video>";
+                        } else {
+                            echo "<img src='" . base_url('/' . $item['url']) . "' alt='Image'>";
+                        }
+                    ?>
                 </div>
                 <div class="media-item-details">
                     <h3><?= $item['filename'] ?></h3>
                     <p>Type: <?= $item['mediatype'] ?></p>
                     <p>ID: <?= $item['id'] ?></p>
-                    <p>Caption: <?= $item['caption'] ?></p>
-                </div>
-                <div class="media-item-actions">
-                    <form action="<?= site_url("upload/delete/{$item['id']}") ?>" method="post">
-                        <button type="submit">Delete</button>
-                    </form>
-                    <form action="<?= site_url("upload/update-caption/{$item['id']}") ?>" method="post">
-                        <textarea name="caption" rows="3" class="media-item-caption"><?= $item['caption'] ?></textarea>
-                        <button type="submit">Update Caption</button>
-                    </form>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
+                    <p>Caption: <?=$item['caption'] ?></p>
+</div>
+<div class="media-item-actions">
+<form action="<?= site_url("upload/delete/{$item['id']}") ?>" method="post">
+<button type="submit">Delete</button>
+</form>
+<form action="<?= site_url("upload/update-caption/{$item['id']}") ?>" method="post">
+<textarea name="caption" rows="3" class="media-item-caption"><?= $item['caption'] ?></textarea>
+<button type="submit">Update Caption</button>
+</form>
+</div>
+</div>
+<?php endforeach; ?>
+</div>
 </body>
 </html>

@@ -84,11 +84,10 @@ class Upload extends BaseController
 
             $validationRules = [
                 'userfile' => [
-                    'label' => 'Image File',
+                    'label' => 'Media File',
                     'rules' => [
                         'uploaded[userfile]',
-                        'is_image[userfile]',
-                        'mime_in[userfile,image/jpg,image/jpeg,image/gif,image/png,image/webp]',
+                        'mime_in[userfile,image/jpg,image/jpeg,image/gif,image/png,image/webp,video/mp4,video/mpeg,video/quicktime,video/x-msvideo,audio/mpeg,audio/ogg,audio/wav,audio/x-wav]',
                         'max_size[userfile,1000000]',
                     ],
                 ],
@@ -112,7 +111,6 @@ class Upload extends BaseController
                     $db->upload($img, $filepath, $newName, $extension, $errors);
                     return view('upload/uploaded', $data);
                 } else {
-                    // Handle the case when the file doesn't exist
                     $data = ['errors' => 'Failed to move the file. Please try again.'];
                     return view('upload/upload', $data);
                 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>.
 <?php helper('html'); ?>
 <html lang="en">
 <head>
@@ -27,6 +27,7 @@
 
 <?= form_open_multipart('upload/upload') ?>
     <input type="file" name="userfile" size="20">
+    <center><p> Allows JPG, PNG, GIF, MP4, MPEG, OGG, WAV </p></center>
     <br><br>
     <input type="submit" value="upload">
 </form>
