@@ -1,5 +1,5 @@
 .DS_Store
 ./writable/
 /writable
-
+/public/*
 *.png
