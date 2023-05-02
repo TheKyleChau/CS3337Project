@@ -6,20 +6,20 @@ use CodeIgniter\Model;
 
 class ServerModel extends Model
 {
-  protected $DBGroup = 'default';
-  protected $table      = 'UserNameAndPassword';
-  protected $primaryKey = 'id';
+  protected $DBGroup          = 'default';
+  protected $table            = 'users';
+  protected $primaryKey       = 'id';
   protected $useAutoIncrement = true;
-  protected $returnType     = 'array';
-  protected $useSoftDeletes = true;
-  protected $allowedFields = ['name', 'email','username','password','salt'];
+  protected $returnType       = 'array';
+  protected $useSoftDeletes   = true;
+  protected $allowedFields    = ['name', 'email','username','password','salt'];
   function initalize() {
     return $db = \Config\Database::connect();
   }
   function login($data, $db, $errors) {
       $username = $data['username'];
       $password = $data['password'];
-      $salt = "SELECT salt FROM UserNameAndPassword WHERE username=". $db->escape($username);
+      $salt = "SELECT salt FROM users WHERE username=". $db->escape($username);
       $resulty = $db->query($salt);
       foreach ($resulty->getResultArray() as $row) {
           $saltresult = $row['salt'];
@@ -29,7 +29,7 @@ class ServerModel extends Model
       }
       else {
         $password = md5($password . $saltresult);
-        $querycheck = "SELECT * FROM UserNameAndPassword WHERE username=". $db->escape($username) . "AND password=" . $db->escape($password);
+        $querycheck = "SELECT * FROM users WHERE username=". $db->escape($username) . "AND password=" . $db->escape($password);
         $query = $db->query($querycheck);
         $numRows = count($query->getResult());
         $hashuser = md5($username);
@@ -60,7 +60,7 @@ class ServerModel extends Model
           array_push($errors, "Special characters not allowed");
           return $errors;
         }
-        $query = "SELECT * FROM UserNameAndPassword WHERE username=" . $db->escape($username) . "OR email= " . $db->escape($email) . "LIMIT 1";
+        $query = "SELECT * FROM users WHERE username=" . $db->escape($username) . "OR email= " . $db->escape($email) . "LIMIT 1";
         if (empty($username)) {
             array_push($errors, "Username is required");
         }
@@ -93,7 +93,7 @@ class ServerModel extends Model
             $password .= $salt;
             $password = md5($password);//encrypt the password before saving in the database
             $hashuser = md5($username);
-            $builder = $db->table('UserNameAndPassword');
+            $builder = $db->table('users');
             $query = [
               'username' => $username,
               'email' => $email,
