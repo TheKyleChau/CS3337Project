@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <?php helper('html'); ?>
-
-<? endif;?>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
