@@ -32,11 +32,18 @@ $routes->add('/quiz', 'Login::index');
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Index::index');
-$routes->match(['get', 'post'],'/login', 'Login::index');
-$routes->match(['get', 'post'],'/register', 'Register::index');
-$routes->get('/logout','Login::logout');
-$routes->post('/login/login', 'Login::login');
-$routes->post('/register/register', 'Register::register');
+$routes->match(['get', 'post'],'login', 'Login::index');
+$routes->match(['get', 'post'],'register', 'Register::index');
+$routes->get('logout','Login::logout');
+$routes->post('login/login', 'Login::login');
+$routes->post('register/register', 'Register::register');
+$routes->get('upload', 'Upload::index', ['filter' => 'authGuard']);
+$routes->post('upload/upload', 'Upload::upload', ['filter' => 'authGuard']);
+$routes->get('media', 'Media::index', ['filter' => 'authGuard']);
+$routes->get('uploads/(:segment)', 'Upload::show/$1', ['filter' => 'authGuard']);
+$routes->post('upload/delete/(:num)', 'Upload::delete/$1', ['filter' => 'authGuard']);
+$routes->post('upload/update-caption/(:num)', 'Upload::updateCaption/$1', ['filter' => 'authGuard']);
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
@@ -50,6 +57,8 @@ $routes->post('/register/register', 'Register::register');
  * You will have access to the $routes object within that file without
  * needing to reload it.
  */
+
+
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }

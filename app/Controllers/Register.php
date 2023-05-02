@@ -9,12 +9,9 @@ class Register extends BaseController
       return view('register/register'); //Returns Login page from Views folder
     }
     public function register() {
-      if (!isset($_SESSION))
-      {
-        session_start();
-      }
+      $session = session();
       $db = new \App\Models\ServerModel();
-      $server = $db->initalize();
+      $db->initalize();
       $errors = array();
       if (isset($_POST['reg_user'])) {
           $username = $_POST['username'];
@@ -35,12 +32,18 @@ class Register extends BaseController
           }
           if(empty($errors)) {
             $data = array('username' => $username, 'password' => $password, 'email' => $email);
-            $errors = $db->register($data, $server, $errors);
-            $_SESSION['errors'] = $errors;
-            return redirect()->route('Index');
+            $errors = $db->register($data, $errors);
+            if(!empty($errors)) {
+              $session->set('errors', $errors);
+              var_dump($session->get('errors'));
+              return redirect()->route('Register');
+            }
+            else {
+              return redirect()->route('Index');
+            }
           }
           else {
-            $_SESSION['errors'] = $errors;
+            $session->set('errors', $errors);
             return redirect()->route('Register');
           }
         }
