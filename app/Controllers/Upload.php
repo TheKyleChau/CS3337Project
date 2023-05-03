@@ -88,7 +88,7 @@ class Upload extends BaseController
                     'rules' => [
                         'uploaded[userfile]',
                         'mime_in[userfile,image/jpg,image/jpeg,image/gif,image/png,image/webp,video/mp4,video/mpeg,video/quicktime,video/x-msvideo,audio/mpeg,audio/ogg,audio/wav,audio/x-wav]',
-                        'max_size[userfile,1000000]',
+                        'max_size[userfile,100000000]',
                     ],
                 ],
             ];
