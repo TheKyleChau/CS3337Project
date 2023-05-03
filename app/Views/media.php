@@ -89,6 +89,10 @@
 </head>
 <body>
 <h1>Media List</h1>
+<center>
+<p> <a href="/" style="color: blue;">Main Menu</a> </p>
+<p> <a href="/logout" style="color: blue;">Logout</a> </p>
+</center>
 <div class="search-container">
     <input id="search-input" placeholder="Search">
     <select id="search-category">

@@ -41,8 +41,9 @@ $session = session();
     <!-- logged in user information -->
     <?php  if (session()->get('username')) : ?>
     	<p>Welcome <strong><?php echo session()->get('username'); ?></strong></p>
+      <p> <a href="/media" style="color: blue;">Media Page</a> </p>
       <p> <a href="/upload" style="color: blue;">Upload</a> </p>
-    	<p> <a href="/logout?logout=1" style="color: red;">logout</a> </p>
+    	<p> <a href="/logout?logout=1" style="color: red;">Logout</a> </p>
     <?php endif ?>
     <?php if (!$session->get('username')) : ?>
       	<p> <a href="/login" style="color: #FFFEE9;">Login</a> </p>
