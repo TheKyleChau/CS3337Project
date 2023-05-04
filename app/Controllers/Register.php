@@ -35,7 +35,6 @@ class Register extends BaseController
             $errors = $db->register($data, $errors);
             if(!empty($errors)) {
               $session->set('errors', $errors);
-              var_dump($session->get('errors'));
               return redirect()->route('Register');
             }
             else {
