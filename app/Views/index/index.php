@@ -22,7 +22,7 @@ $session = session();
 
 <head>
   <div class="header">
-	  <h2>Authentication Page</h2>
+	  <h2>Media House</h2>
   </div>
 </head>
 

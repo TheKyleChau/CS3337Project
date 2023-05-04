@@ -14,10 +14,18 @@ body {
   padding: 0;
 }
 
+.navbar {
+  margin-top: 0;
+}
+
+.navbar-brand {
+  margin-top: 0;
+}
+
 .file-upload-wrapper {
   position: relative;
   overflow: hidden;
-  
+
   vertical-align: middle;
   text-align: center;
   cursor: pointer;
@@ -43,4 +51,3 @@ body {
   opacity: 0;
   cursor: pointer;
 }
-

@@ -31,7 +31,7 @@
     </nav>
   </header>
   <main
-    style="background-color: #ECB984; padding: 10em; min-height: 750px; margin-right:200px; margin-left:200px; margin-top:50px; margin-bottom:50px; border-radius:100px; border: 1px solid black;">
+    style="background-color: #ECB984; padding: 10em; min-height: 750px; margin-right:200px; margin-left:200px; margin-bottom:50px; border-radius:100px; border: 1px solid black;">
     <div
       style="background-color: #A8A676; text-align:center;  border: 1px solid black;">
       <div class="jumbotron" style = "background-color: #A8A676;">

@@ -29,6 +29,11 @@ class MediaModel extends Model
         return $this->update($id, ['caption' => $caption]);
     }
 
+    public function updateFilename($id, $filename)
+    {
+        return $this->update($id, ['filename' => $filename]);
+    }
+
     public function upload($file, $url, $name, $extension, &$errors)
     {
         $username = session()->get('username');

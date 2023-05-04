@@ -91,6 +91,7 @@
 <h1>Media List</h1>
 <center>
 <p> <a href="/" style="color: blue;">Main Menu</a> </p>
+<p> <a href="/" style="color: blue;">Upload</a> </p>
 <p> <a href="/logout" style="color: blue;">Logout</a> </p>
 </center>
 <div class="search-container">
@@ -109,6 +110,10 @@
     </select>
     <button type="button" id="search-button">Search</button>
 </div>
+<center>
+<button id="randomize-button">I'm feeling lucky</button>
+</center>
+<p></p>
 <div class="media-list">
         <?php foreach ($media as $item): ?>
             <?php
@@ -149,6 +154,10 @@
                   <form action="<?= site_url("upload/update-caption/{$item['id']}") ?>" method="post">
                       <textarea name="caption" rows="3" class="media-item-caption"><?= $item['caption'] ?></textarea>
                       <button type="submit">Update Caption</button>
+                  </form>
+                  <form action="<?= site_url("upload/update-filename/{$item['id']}") ?>" method="post">
+                      <textarea name="filename" rows="3" class="media-item"><?= $item['filename'] ?></textarea>
+                      <button type="submit">Update Filename</button>
                   </form>
               </div>
           </div>
@@ -207,6 +216,24 @@
             }
         });
     });
+    const randomizeButton = document.getElementById('randomize-button');
+            const mediaList = document.querySelector('.media-list');
+
+            randomizeButton.addEventListener('click', () => {
+                const mediaItems = Array.from(mediaList.children);
+                shuffleArray(mediaItems);
+                mediaItems.forEach((item) => {
+                    mediaList.appendChild(item);
+                });
+            });
+
+            // Function to shuffle an array
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
 </script>
 </body>
 </html>

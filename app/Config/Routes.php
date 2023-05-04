@@ -40,7 +40,8 @@ $routes->post('upload/upload', 'Upload::upload', ['filter' => 'authGuard']);
 $routes->get('media', 'Media::index', ['filter' => 'authGuard']);
 $routes->get('uploads/(:segment)', 'Upload::show/$1', ['filter' => 'authGuard']);
 $routes->post('upload/delete/(:num)', 'Upload::delete/$1', ['filter' => 'authGuard']);
-$routes->post('upload/update-caption/(:num)', 'Upload::updateCaption/$1', ['filter' => 'authGuard']);
+$routes->post('upload/update-caption/(:num)', 'Media::updateCaption/$1', ['filter' => 'authGuard']);
+$routes->post('upload/update-filename/(:num)', 'Media::updateFilename/$1', ['filter' => 'authGuard']);
 
 /*
  * --------------------------------------------------------------------

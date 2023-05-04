@@ -68,8 +68,8 @@ class ServerModel extends Model
         $username = $data['username'];
         $email = $data['email'];
         $password = $data['password'];
-        $filter = '/[\'^£$%&*()}{#~?><>,|=_+¬-]/';
-        if (preg_match($filter, $username) || preg_match($filter, $password))
+        $filter = '/[\'^£$@%&*()}{#~?><>,|=_+¬-]/';
+        if (preg_match($filter, $username) || preg_match($filter, $email))
         {
           array_push($errors, "Special characters not allowed");
           return $errors;
@@ -93,13 +93,10 @@ class ServerModel extends Model
                 $resultarray['username'] = $r['username'];
                 $resultarray['email'] = $r['email'];
             }
-            if ($resultarray['username'] === $username) {
-                array_push($errors, "Username already exists");
+            if ($resultarray['username'] === $username || $resultarray['email'] === $email) {
+                array_push($errors, "Username or Email already exists");
             }
 
-            if ($resultarray['email'] === $email) {
-                array_push($errors, "Email already exists");
-            }
             return $errors;
         }
         if (count($errors) == 0) {

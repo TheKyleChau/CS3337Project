@@ -11,11 +11,11 @@
     <title>File Successfully Uploaded</title>
 </head>
 
-<body style="border: solid black 1px; text-align: center;">
+<body style="border: solid black 1px; text-align: center; background-color: #4E3524;">
     <header style="border: solid black 1px; min-width: 100%;">
         <div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; min-width: 100%;">
-                <a class="navbar-brand" href="#">CS3337</a>
+                <a class="navbar-brand" href="#">Media Mouse</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,16 +23,13 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Login</a>
+                            <a class="nav-link" href="/login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Register</a>
+                            <a class="nav-link" href="/register">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Upload</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Logout</a>
+                            <a class="nav-link" href="/upload">Upload</a>
                         </li>
                     </ul>
                 </div>
@@ -44,17 +41,17 @@
         </div>
     </header>
     <main style="text-align: center; min-width: 50%; margin-right:200px; margin-left:200px;">
-        <div class="card">
-            <div class="card-body">
+        <div class="card" style = "background-color: #A8A676;">
+            <div class="card-body" style="background-color: #A8A676;">
                 <h5 class="card-title"></h5>
                 <p class="card-text"><h3>Information regarding your upload:</h3></p>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item" >name: <?= esc($uploaded_fileinfo->getBasename()) ?></li>
-                <li class="list-group-item" >size: <?= esc($uploaded_fileinfo->getSizeByUnit('kb')) ?> KB</li>
-                <li class="list-group-item" >extension: <?= esc($uploaded_fileinfo->guessExtension()) ?></li>
+            <ul class="list-group list-group-flush" style="background-color: #A8A676;">
+                <li class="list-group-item" style="background-color: #A8A676;" >name: <?= esc($uploaded_fileinfo->getBasename()) ?></li>
+                <li class="list-group-item" style="background-color: #A8A676;">size: <?= esc($uploaded_fileinfo->getSizeByUnit('kb')) ?> KB</li>
+                <li class="list-group-item" style="background-color: #A8A676;">extension: <?= esc($uploaded_fileinfo->guessExtension()) ?></li>
             </ul>
-            <div class="card-body">
+            <div class="card-body" style="background-color: #A8A676; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px;">
                 <p><?= anchor('upload', 'Upload Another File!') ?></p>
                 <button><a href = "/media">To Media Page</a></button>
             </div>

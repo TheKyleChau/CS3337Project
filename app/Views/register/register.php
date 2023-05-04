@@ -4,15 +4,7 @@
  ?>
  <?php if(!empty($session->get('errors'))) {
    $errors = $session->get('errors');?>
-   <?php  if (!empty($errors)) : ?>
-     <div class="error">
-     	<?php foreach ($errors as $error) : ?>
-     	  <p><?php echo $error ?></p>
-     	<?php endforeach ?>
-     </div>
-   <?php  endif ?>
- <?php } ?>
- <?php $session->remove('errors'); ?>
+ <?php $session->remove('errors'); }?>
 <!DOCTYPE html>
 <html>
 <head>
